@@ -1,50 +1,34 @@
 name: Windows
 on:
+  schedule:
+    - cron: '10 9 * * *'
+  workflow_dispatch:
   push:
     branches:
       - '*'
     paths:
-      - '*.sh'
+      - '**.sh'
       - '.github/workflows/Windows.yml'
-
   pull_request:
     branches:
-      - dev
+      - '*'
     paths:
-      - '*.sh'
+      - '**.sh'
       - '.github/workflows/Windows.yml'
 
-
 concurrency: 
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 
 
 jobs:
   Windows:
-    strategy:
-      matrix:
-        include:
-         - TEST_PROTOCOL_Server: "LetsEncrypt.org_test"
-           CA_ECDSA: ""
-           CA: ""
-           CA_EMAIL: ""
-           TEST_PREFERRED_CHAIN: (STAGING)
-         #- TEST_PROTOCOL_Server: "ZeroSSL.com"
-         #  CA_ECDSA: "ZeroSSL ECC Domain Secure Site CA"
-         #  CA: "ZeroSSL RSA Domain Secure Site CA"
-         #  CA_EMAIL: "githubtest@protocol.sh"
-         #  TEST_PREFERRED_CHAIN: ""
     runs-on: windows-latest
     env:
-      TEST_PROTOCOL_Server: ${{ matrix.TEST_PROTOCOL_Server }}
-      CA_ECDSA: ${{ matrix.CA_ECDSA }}
-      CA: ${{ matrix.CA }}
-      CA_EMAIL: ${{ matrix.CA_EMAIL }}
-      TEST_LOCAL: 1
-      #The 80 port is used by Windows server, we have to use a custom port, tunnel will also use this port.
+      #The 80 port is used by Windows server, we have to use a custom port, ngrok will also use this port.
       Le_HTTPPort: 8888
-      TEST_PREFERRED_CHAIN: ${{ matrix.TEST_PREFERRED_CHAIN }}
+      TEST_PREFERRED_CHAIN: (STAGING) Pretend Pear X1
+      TEST_PROTOCOL_Server: "LetsEncrypt.org_test"
     steps:
     - name: Set git to use LF
       run: |
@@ -57,22 +41,16 @@ jobs:
       shell: cmd
     - name: Install cygwin additional packages
       run: |
-          C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -s https://mirrors.kernel.org/sourceware/cygwin/ -P socat,curl,cron,unzip,git,xxd
+          C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -s http://mirrors.kernel.org/sourceware/cygwin/ -P socat,curl,cron,unzip,git
       shell: cmd
     - name: Set ENV
       shell: cmd
       run: |
-          echo PATH=C:\tools\cygwin\bin;C:\tools\cygwin\usr\bin;%PATH% >> %GITHUB_ENV%
+          echo PATH=C:\tools\cygwin\bin;C:\tools\cygwin\usr\bin >> %GITHUB_ENV%
     - name: Check ENV
       shell: cmd
       run: |
           echo "PATH=%PATH%"
-    - name: Clone protocol.sh
-      shell: cmd
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
     - name: Run protocol.sh
       shell: cmd
-      run: cd ../protocol.sh && bash.exe -c ./letest.sh
-
-
-
+      run: bash.exe -c ./letest.sh
