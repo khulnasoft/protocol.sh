@@ -41,7 +41,7 @@ jobs:
     - name: Set up Pebble
       run: curl --request POST --data '{"ip":"10.30.50.1"}' http://localhost:8055/set-default-ipv4
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - name: Run protocol.sh
       run: cd ../protocol.sh && ./letest.sh
 
@@ -67,6 +67,6 @@ jobs:
         -e PEBBLE_VA_ALWAYS_VALID=1 \
         -p 14000:14000 -p 15000:15000   letsencrypt/pebble:latest pebble -config /test/config/pebble-config.json -strict
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - name: Run protocol.sh
       run: cd ../protocol.sh && ./letest.sh
