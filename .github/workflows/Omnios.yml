@@ -4,13 +4,13 @@ on:
     - cron: '10 9 * * *'
   push:
     branches:
-      - '*'
+      - 'protocoltest'
     paths:
       - '**.sh'
       - '.github/workflows/Omnios.yml'
   pull_request:
     branches:
-      - '*'
+      - 'protocoltest'
     paths:
       - '**.sh'
       - '.github/workflows/Omnios.yml'

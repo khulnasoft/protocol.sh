@@ -5,14 +5,14 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '*'
+      - 'protocoltest'
     paths:
       - '**.sh'
       - '.github/workflows/Linux.yml'
       - 'plat.conf'
   pull_request:
     branches:
-      - '*'
+      - 'protocoltest'
     paths:
       - '**.sh'
       - '.github/workflows/Linux.yml'

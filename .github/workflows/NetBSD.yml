@@ -5,13 +5,13 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '*'
+      - 'protocoltest'
     paths:
       - '**.sh'
       - '.github/workflows/NetBSD.yml'
   pull_request:
     branches:
-      - '*'
+      - 'protocoltest'
     paths:
       - '**.sh'
       - '.github/workflows/NetBSD.yml'

@@ -1,7 +1,7 @@
 
 Img="https://khulnasoft.github.io/protocol.sh/status"
 
-LogLink="https://github.com/khulnasoft/protocol.sh/blob/master"
+LogLink="https://github.com/khulnasoft/protocol.sh/blob/protocoltest"
 
 Conf="plat.conf"
 
