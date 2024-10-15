@@ -1,55 +1,34 @@
 name: OpenBSD
 on:
+  schedule:
+    - cron: '10 9 * * *'
+  workflow_dispatch:
   push:
     branches:
-      - '*'
+      - 'protocoltest'
     paths:
-      - '*.sh'
+      - '**.sh'
       - '.github/workflows/OpenBSD.yml'
-
   pull_request:
     branches:
-      - dev
+      - 'protocoltest'
     paths:
-      - '*.sh'
+      - '**.sh'
       - '.github/workflows/OpenBSD.yml'
 
 concurrency: 
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}
   cancel-in-progress: true
-
-
 
 jobs:
   OpenBSD:
     strategy:
       matrix:
-        include:
-         - TEST_PROTOCOL_Server: "LetsEncrypt.org_test"
-           CA_ECDSA: ""
-           CA: ""
-           CA_EMAIL: ""
-           TEST_PREFERRED_CHAIN: (STAGING)
-         - TEST_PROTOCOL_Server: "LetsEncrypt.org_test"
-           CA_ECDSA: ""
-           CA: ""
-           CA_EMAIL: ""
-           TEST_PREFERRED_CHAIN: (STAGING)
-           PROTOCOL_USE_WGET: 1
-         #- TEST_PROTOCOL_Server: "ZeroSSL.com"
-         #  CA_ECDSA: "ZeroSSL ECC Domain Secure Site CA"
-         #  CA: "ZeroSSL RSA Domain Secure Site CA"
-         #  CA_EMAIL: "githubtest@protocol.sh"
-         #  TEST_PREFERRED_CHAIN: ""
+        release: [""]
     runs-on: ubuntu-latest
     env:
-      TEST_LOCAL: 1
-      TEST_PROTOCOL_Server: ${{ matrix.TEST_PROTOCOL_Server }}
-      CA_ECDSA: ${{ matrix.CA_ECDSA }}
-      CA: ${{ matrix.CA }}
-      CA_EMAIL: ${{ matrix.CA_EMAIL }}
-      TEST_PREFERRED_CHAIN: ${{ matrix.TEST_PREFERRED_CHAIN }}
-      PROTOCOL_USE_WGET: ${{ matrix.PROTOCOL_USE_WGET }}
+      TEST_PREFERRED_CHAIN: (STAGING) Pretend Pear X1
+      TEST_PROTOCOL_Server: "LetsEncrypt.org_test"
     steps:
     - uses: actions/checkout@v4
     - uses: vmactions/cf-tunnel@v0
@@ -59,18 +38,14 @@ jobs:
         port: 8080
     - name: Set envs
       run: echo "TestingDomain=${{steps.tunnel.outputs.server}}" >> $GITHUB_ENV
-    - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
     - uses: vmactions/openbsd-vm@v1
       with:
-        envs: 'TEST_LOCAL TestingDomain TEST_PROTOCOL_Server CA_ECDSA CA CA_EMAIL TEST_PREFERRED_CHAIN PROTOCOL_USE_WGET'
+        envs: 'TestingDomain TEST_PREFERRED_CHAIN TEST_PROTOCOL_Server'
         nat: |
           "8080": "80"
-        prepare: pkg_add socat curl wget libnghttp2
+        prepare: pkg_add socat curl libnghttp2
         usesh: true
         copyback: false
-        run: |
-          cd ../protocol.sh \
-          && ./letest.sh
-
+        release: ${{ matrix.release }}
+        run: ./letest.sh
 

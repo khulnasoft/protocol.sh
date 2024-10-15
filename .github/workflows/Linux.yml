@@ -1,48 +1,46 @@
 name: Linux
 on:
+  schedule:
+    - cron: '10 9 * * *'
+  workflow_dispatch:
   push:
     branches:
-      - '*'
+      - 'protocoltest'
     paths:
-      - '*.sh'
+      - '**.sh'
       - '.github/workflows/Linux.yml'
-
+      - 'plat.conf'
   pull_request:
     branches:
-      - dev
+      - 'protocoltest'
     paths:
-      - '*.sh'
+      - '**.sh'
       - '.github/workflows/Linux.yml'
-
+      - 'plat.conf'
 
 concurrency: 
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 
-
-
-
 jobs:
-  Linux:
+  Docker:
     strategy:
       matrix:
-        os: ["ubuntu:latest", "debian:latest", "almalinux:latest", "fedora:latest", "opensuse/leap:latest", "alpine:latest", "oraclelinux:8", "kalilinux/kali", "archlinux:latest", "mageia", "gentoo/stage3"]
+        os: ["ubuntu:latest", "debian:latest", "almalinux:latest", "fedora:latest", "opensuse/leap:latest", "alpine:latest", "oraclelinux:8", "kalilinux/kali", "archlinux:latest", "mageia", "gentoo/stage3", "tatsushid/tinycore"]
     runs-on: ubuntu-latest
     env:
-      TEST_LOCAL: 1
-      TEST_PREFERRED_CHAIN: (STAGING)
+      DEBUG: 1
+      TEST_PREFERRED_CHAIN: (STAGING) Pretend Pear X1
       TEST_PROTOCOL_Server: "LetsEncrypt.org_test"
     steps:
     - uses: actions/checkout@v4
-    - name: Clone protocol.sh
-      run: |
-          cd .. \
-          && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh \
-          && cp -r protocol.sh protocol.sh/
+    - uses: vmactions/cf-tunnel@v0
+      id: tunnel
+      with:
+        protocol: http
+        port: 80
+    - name: Set envs
+      run: echo "TestingDomain=${{steps.tunnel.outputs.server}}" >> $GITHUB_ENV
     - name: Run protocol.sh
       run: |
-          cd ../protocol.sh \
-          && ./rundocker.sh  testplat ${{ matrix.os }}
-
-
-
+        ./rundocker.sh  testplat ${{ matrix.os }}
