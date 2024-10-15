@@ -68,7 +68,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - name: Set env file
       run: |
         cd ../protocol.sh
@@ -118,7 +118,7 @@ jobs:
     - name: Install tools
       run:  brew install socat
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - name: Run protocol.sh
       run: |
         if [ "${{ secrets.TokenName1}}" ] ; then
@@ -180,7 +180,7 @@ jobs:
       run: |
           echo PATH=C:\tools\cygwin\bin;C:\tools\cygwin\usr\bin >> %GITHUB_ENV%
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - name: Run protocol.sh
       shell: bash
       run: |
@@ -226,7 +226,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - uses: vmactions/freebsd-vm@v1
       with:
         envs: 'TEST_DNS TestingDomain TEST_DNS_NO_WILDCARD TEST_DNS_NO_SUBDOMAIN TEST_DNS_SLEEP CASE TEST_LOCAL DEBUG http_proxy https_proxy TokenName1 TokenName2 TokenName3 TokenName4 TokenName5 ${{ secrets.TokenName1}} ${{ secrets.TokenName2}} ${{ secrets.TokenName3}} ${{ secrets.TokenName4}} ${{ secrets.TokenName5}}'
@@ -277,7 +277,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - uses: vmactions/openbsd-vm@v1
       with:
         envs: 'TEST_DNS TestingDomain TEST_DNS_NO_WILDCARD TEST_DNS_NO_SUBDOMAIN TEST_DNS_SLEEP CASE TEST_LOCAL DEBUG http_proxy https_proxy TokenName1 TokenName2 TokenName3 TokenName4 TokenName5 ${{ secrets.TokenName1}} ${{ secrets.TokenName2}} ${{ secrets.TokenName3}} ${{ secrets.TokenName4}} ${{ secrets.TokenName5}}'
@@ -328,7 +328,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - uses: vmactions/netbsd-vm@v1
       with:
         envs: 'TEST_DNS TestingDomain TEST_DNS_NO_WILDCARD TEST_DNS_NO_SUBDOMAIN TEST_DNS_SLEEP CASE TEST_LOCAL DEBUG http_proxy https_proxy TokenName1 TokenName2 TokenName3 TokenName4 TokenName5 ${{ secrets.TokenName1}} ${{ secrets.TokenName2}} ${{ secrets.TokenName3}} ${{ secrets.TokenName4}} ${{ secrets.TokenName5}}'
@@ -380,7 +380,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - uses: vmactions/dragonflybsd-vm@v1
       with:
         envs: 'TEST_DNS TestingDomain TEST_DNS_NO_WILDCARD TEST_DNS_NO_SUBDOMAIN TEST_DNS_SLEEP CASE TEST_LOCAL DEBUG http_proxy https_proxy TokenName1 TokenName2 TokenName3 TokenName4 TokenName5 ${{ secrets.TokenName1}} ${{ secrets.TokenName2}} ${{ secrets.TokenName3}} ${{ secrets.TokenName4}} ${{ secrets.TokenName5}}'
@@ -436,7 +436,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - uses: vmactions/solaris-vm@v1
       with:
         envs: 'TEST_DNS TestingDomain TEST_DNS_NO_WILDCARD TEST_DNS_NO_SUBDOMAIN TEST_DNS_SLEEP CASE TEST_LOCAL DEBUG http_proxy https_proxy HTTPS_INSECURE TokenName1 TokenName2 TokenName3 TokenName4 TokenName5 ${{ secrets.TokenName1}} ${{ secrets.TokenName2}} ${{ secrets.TokenName3}} ${{ secrets.TokenName4}} ${{ secrets.TokenName5}}'
@@ -487,7 +487,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - uses: vmactions/omnios-vm@v1
       with:
         envs: 'TEST_DNS TestingDomain TEST_DNS_NO_WILDCARD TEST_DNS_NO_SUBDOMAIN TEST_DNS_SLEEP CASE TEST_LOCAL DEBUG http_proxy https_proxy HTTPS_INSECURE TokenName1 TokenName2 TokenName3 TokenName4 TokenName5 ${{ secrets.TokenName1}} ${{ secrets.TokenName2}} ${{ secrets.TokenName3}} ${{ secrets.TokenName4}} ${{ secrets.TokenName5}}'

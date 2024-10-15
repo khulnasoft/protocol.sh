@@ -69,7 +69,7 @@ jobs:
           echo "PATH=%PATH%"
     - name: Clone protocol.sh
       shell: cmd
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - name: Run protocol.sh
       shell: cmd
       run: cd ../protocol.sh && bash.exe -c ./letest.sh

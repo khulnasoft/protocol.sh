@@ -60,7 +60,7 @@ jobs:
     - name: Set envs
       run: echo "TestingDomain=${{steps.tunnel.outputs.server}}" >> $GITHUB_ENV
     - name: Clone protocol.sh
-      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh  && cp -r protocol.sh protocol.sh/
+      run: cd .. && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest  && cp -r protocoltest protocol.sh/
     - uses: vmactions/omnios-vm@v1
       with:
         envs: 'TEST_LOCAL TestingDomain TEST_PROTOCOL_Server CA_ECDSA CA CA_EMAIL TEST_PREFERRED_CHAIN PROTOCOL_USE_WGET'

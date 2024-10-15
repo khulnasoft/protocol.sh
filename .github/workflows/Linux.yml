@@ -37,7 +37,7 @@ jobs:
     - name: Clone protocol.sh
       run: |
           cd .. \
-          && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh \
+          && git clone -b protocoltest --depth=1 https://github.com/khulnasoft/protocol.sh protocoltest \
           && cp -r protocol.sh protocol.sh/
     - name: Run protocol.sh
       run: |
